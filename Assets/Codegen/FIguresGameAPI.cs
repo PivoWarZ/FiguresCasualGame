@@ -15,6 +15,7 @@ namespace FiguresGame
 		///Keys
 		public const int Spawner = 1; // SpawnerInstaller
 		public const int FiguresContainer = 11; // Transform
+		public const int Settings = 12; // Settings
 
 
 		///Extensions
@@ -53,5 +54,23 @@ namespace FiguresGame
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasFiguresContainer(this IContext obj) => obj.HasValue(FiguresContainer);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Settings GetSettings(this IContext obj) => obj.ResolveValue<Settings>(Settings);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetSettings(this IContext obj, out Settings value) => obj.TryResolveValue(Settings, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddSettings(this IContext obj, Settings value) => obj.AddValue(Settings, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelSettings(this IContext obj) => obj.DelValue(Settings);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetSettings(this IContext obj, Settings value) => obj.SetValue(Settings, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasSettings(this IContext obj) => obj.HasValue(Settings);
     }
 }

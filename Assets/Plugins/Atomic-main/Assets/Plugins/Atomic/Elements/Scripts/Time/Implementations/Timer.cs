@@ -202,7 +202,6 @@ namespace Atomic.Elements
             {
                 return false;
             }
-            Debug.Log("TimerStop");
             this.currentTime = 0;
             this.currentState = State.IDLE;
             this.OnStateChanged?.Invoke(State.IDLE);

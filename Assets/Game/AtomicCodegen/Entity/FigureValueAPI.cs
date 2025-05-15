@@ -17,7 +17,7 @@ namespace FiguresGame
     {
         ///Keys
         public const int AnimalImages = 11; // Sprite[]
-        public const int SpriteRenderer = 6; // SpriteRenderer
+        public const int ColorSpriteRenderer = 6; // SpriteRenderer
         public const int Prefabs = 7; // List<SceneEntity>
         public const int SpriteColors = 13; // Color[]
         public const int AnimalSpriteRenderer = 14; // SpriteRenderer
@@ -49,22 +49,22 @@ namespace FiguresGame
         public static void SetAnimalImages(this IEntity obj, Sprite[] value) => obj.SetValue(AnimalImages, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static SpriteRenderer GetSpriteRenderer(this IEntity obj) => obj.GetValue<SpriteRenderer>(SpriteRenderer);
+        public static SpriteRenderer GetColorSpriteRenderer(this IEntity obj) => obj.GetValue<SpriteRenderer>(ColorSpriteRenderer);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetSpriteRenderer(this IEntity obj, out SpriteRenderer value) => obj.TryGetValue(SpriteRenderer, out value);
+        public static bool TryGetColorSpriteRenderer(this IEntity obj, out SpriteRenderer value) => obj.TryGetValue(ColorSpriteRenderer, out value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool AddSpriteRenderer(this IEntity obj, SpriteRenderer value) => obj.AddValue(SpriteRenderer, value);
+        public static bool AddColorSpriteRenderer(this IEntity obj, SpriteRenderer value) => obj.AddValue(ColorSpriteRenderer, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool HasSpriteRenderer(this IEntity obj) => obj.HasValue(SpriteRenderer);
+        public static bool HasColorSpriteRenderer(this IEntity obj) => obj.HasValue(ColorSpriteRenderer);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool DelSpriteRenderer(this IEntity obj) => obj.DelValue(SpriteRenderer);
+        public static bool DelColorSpriteRenderer(this IEntity obj) => obj.DelValue(ColorSpriteRenderer);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SetSpriteRenderer(this IEntity obj, SpriteRenderer value) => obj.SetValue(SpriteRenderer, value);
+        public static void SetColorSpriteRenderer(this IEntity obj, SpriteRenderer value) => obj.SetValue(ColorSpriteRenderer, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<SceneEntity> GetPrefabs(this IEntity obj) => obj.GetValue<List<SceneEntity>>(Prefabs);

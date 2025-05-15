@@ -58,7 +58,7 @@ MonoBehaviour:
       name: AnimalImages
       type: 'Sprite[]'
     - id: 6
-      name: SpriteRenderer
+      name: ColorSpriteRenderer
       type: SpriteRenderer
     - id: 7
       name: Prefabs

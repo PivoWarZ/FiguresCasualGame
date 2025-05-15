@@ -10,6 +10,7 @@ namespace FiguresGame
         private List<IEntity> _spawnedEntities = new();
         private List<IEntity> _activeEntities = new();
         private List<Transform> _positions;
+        private const int FIRST_SPAWN_POSITION = 0;
         void IContextInit.Init(IContext context)
         {
             _positions = context.GetSpawner().SpawnPoints;
@@ -24,7 +25,7 @@ namespace FiguresGame
 
         private void ActivateEntitys()
         {
-            var positionIndex = 0;
+            var positionIndex = FIRST_SPAWN_POSITION;
             
             while (_spawnedEntities.Count - 1 > 0)
             {

@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.67, y: 0.039, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8129160483484587219}
@@ -81,8 +81,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityTransform: {fileID: 5332942097508202244}
-  _spriteRenderer: {fileID: 4367957436031548399}
-  _animalSpriteRenderer: {fileID: 2880808312501371284}
+  _colorSpriteRenderer: {fileID: 2880808312501371284}
+  _animalSpriteRenderer: {fileID: 4367957436031548399}
 --- !u!212 &4367957436031548399
 SpriteRenderer:
   m_ObjectHideFlags: 0

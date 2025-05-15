@@ -10,7 +10,7 @@ using Timer = Atomic.Elements.Timer;
 namespace FiguresGame
 {
     [Serializable]
-    public class SpawnerInstaller: IContextInstaller, IContextEnable
+    public class SpawnerInstaller: IContextInstaller
     {
         public event Action<int> OnSpawn;
         public Event<IEntity> OnEntitySpawned = new();
@@ -27,6 +27,7 @@ namespace FiguresGame
             
             context.AddSystem(new SpawnerBehavior());
             context.AddSystem(new ActivatorBehavior());
+            context.AddSystem(new SetFiguresBehavior());
         }
         
         public List<Transform> SpawnPoints => _spawnPoints;
@@ -35,21 +36,14 @@ namespace FiguresGame
         public int SpawnCount => _spawnCount;
         public List<SceneEntity> Prefabs => _prefabs;
 
-        public void Enable(IContext context)
-        {
-            Debug.Log("Enabling Installer");
-        }
-
         private void AllEntitysSpawned()
         {
-            Debug.Log("AllEntitysSpawned");
-            OnAllEntitySpawned.Invoke();
+            OnAllEntitySpawned?.Invoke();
         }
 
         [Button]
         public void Spawn(int count)
         {
-            Debug.Log($"Spawning  {count}");
             OnSpawn?.Invoke(count);
         }
 

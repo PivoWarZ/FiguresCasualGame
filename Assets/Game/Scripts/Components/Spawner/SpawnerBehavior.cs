@@ -14,6 +14,8 @@ namespace FiguresGame
         private Transform _figuresContainer;
         private Timer _timer;
         private int _count;
+        private const int FIRST_ENTITY_TYPE = 0;
+        private const int FIRST_POOL_NUMBER = 0;
 
         void IContextInit.Init(IContext context)
         {
@@ -47,9 +49,9 @@ namespace FiguresGame
         
         private void Spawn()
         {
-            var index = 0;
+            var index = FIRST_POOL_NUMBER;
             SceneEntity prefab = GetRandomEntity();
-            var _objectType = 0;
+            var _objectType = FIRST_ENTITY_TYPE;
             
             while (_count > 0)
             {

@@ -78,3 +78,6 @@ MonoBehaviour:
     - id: 11
       name: FiguresContainer
       type: Transform
+    - id: 12
+      name: Settings
+      type: Settings

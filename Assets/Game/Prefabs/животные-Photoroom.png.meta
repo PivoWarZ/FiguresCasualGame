@@ -168,6 +168,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -448,7 +474,19 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "\u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0435-Photoroom_0": -3748854728050041203
+      "\u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0435-Photoroom_1": 2177651091684421478
+      "\u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0435-Photoroom_10": -2888542913106007889
+      "\u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0435-Photoroom_11": -5796045349113010749
+      "\u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0435-Photoroom_2": 5815290830793542036
+      "\u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0435-Photoroom_3": 1979176752865040443
+      "\u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0435-Photoroom_4": -8241069451977224302
+      "\u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0435-Photoroom_5": -7573184362076965920
+      "\u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0435-Photoroom_6": -662265141359829598
+      "\u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0435-Photoroom_7": 1412262307531439124
+      "\u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0435-Photoroom_8": -4909221659544312351
+      "\u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0435-Photoroom_9": 7371715787710312210
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

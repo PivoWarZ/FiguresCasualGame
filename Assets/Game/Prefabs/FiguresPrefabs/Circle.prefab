@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 8558848359348693293, guid: 7a5962b3ba448e24eae0290b361b4bed, type: 3}
-  m_Color: {r: 0.14550899, g: 0.7830189, b: 0.08495018, a: 1}
+  m_Color: {r: 0.08426952, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -169,7 +169,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.039, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2936706902829204865}
@@ -219,8 +219,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityTransform: {fileID: 5350173617005150201}
-  _spriteRenderer: {fileID: 8809745881233177360}
-  _animalSpriteRenderer: {fileID: 7803590597829711887}
+  _colorSpriteRenderer: {fileID: 7803590597829711887}
+  _animalSpriteRenderer: {fileID: 8809745881233177360}
 --- !u!212 &8809745881233177360
 SpriteRenderer:
   m_ObjectHideFlags: 0
