@@ -71,4 +71,19 @@ MonoBehaviour:
       type: SpriteRenderer
     - id: 15
       name: ObjectType
-      type: int
+      type: ReactiveVariable<int>
+    - id: 16
+      name: OnEntityDelete
+      type: Event<IEntity>
+    - id: 17
+      name: EntityTransform
+      type: Transform
+    - id: 18
+      name: BarPositions
+      type: List<Transform>
+    - id: 19
+      name: EntityBar
+      type: List<IEntity>
+    - id: 20
+      name: OnEntityClick
+      type: Event<IEntity>

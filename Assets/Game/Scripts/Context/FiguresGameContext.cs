@@ -11,7 +11,7 @@ namespace FiguresGame
         {
             _serviceLocator.Install(context);
             _spawner.Install(context);
-            Debug.Log("FIguresGameContext Install");
+            
             context.AddSpawner(_spawner);
         }
     }

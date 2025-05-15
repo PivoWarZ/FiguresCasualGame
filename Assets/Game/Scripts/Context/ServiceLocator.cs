@@ -11,10 +11,11 @@ namespace FiguresGame
     {
         [SerializeField] private Transform _figuresContainer;
 
+
         public void Install(IContext context)
         {
             context.AddFiguresContainer((_figuresContainer));
-            Debug.Log($"Service Locator Install _figuresContainer: {_figuresContainer.name}");
+            
         }
     }
 }

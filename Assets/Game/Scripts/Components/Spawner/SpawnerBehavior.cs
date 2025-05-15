@@ -1,8 +1,7 @@
-using System;
+using System.Collections.Generic;
 using Atomic.Contexts;
 using UnityEngine;
 using Atomic.Entities;
-using Unity.VisualScripting;
 using Random = UnityEngine.Random;
 using Timer = Atomic.Elements.Timer;
 
@@ -11,6 +10,7 @@ namespace FiguresGame
     public class SpawnerBehavior: IContextInit, IContextEnable, IContextUpdate, IContextDispose
     {
         private SpawnerInstaller _spawner;
+        private List<SceneEntity> _prefabs = new();
         private Transform _figuresContainer;
         private Timer _timer;
         private int _count;
@@ -19,6 +19,7 @@ namespace FiguresGame
         {
             _spawner = context.GetSpawner();
             _timer = context.GetSpawner().Timer;
+            _prefabs = _spawner.Prefabs;
             _figuresContainer = context.GetFiguresContainer();
         }
 
@@ -30,40 +31,50 @@ namespace FiguresGame
 
         private void SetCount(int count)
         {
-            Debug.Log("SetCount: " + count);
             _count = count;
             _timer.Start();
         }
 
         public void Update(IContext context, float deltaTime)
         {
+            if (_count <= 0)
+            {
+                return;
+            }
+            
             _timer.Tick(deltaTime);
         }
         
         private void Spawn()
         {
             var index = 0;
+            SceneEntity prefab = GetRandomEntity();
+            var _objectType = 0;
             
             while (_count > 0)
             {
-                var positionIndex = (index + 1) % _spawner.SpawnPoints.Count;
-                IEntity entity = SceneEntity.Instantiate(_spawner.Prefab, _spawner.SpawnPoints[positionIndex].position, Quaternion.identity, _figuresContainer);
+                if (index % _spawner.PoolSize == 0)
+                {
+                    prefab = GetRandomEntity();
+                    _objectType++;
+                }
+                
+                IEntity entity = SceneEntity.Instantiate(prefab, _figuresContainer);
+                entity.GetObjectType().Value = _objectType;
                 _spawner.OnEntitySpawned.Invoke(entity);
                 index++;
                 _count--;
-                //Debug.Log($"Spawn count: {_count}  {_figuresContainer.name}");
-                Debug.Log("Index: " + positionIndex);
             }
-
+            
             _timer.Stop();
         }
 
-        private Vector3 GetRandomPosition()
+        private SceneEntity GetRandomEntity()
         {
-            var value = Random.Range(0, _spawner.SpawnPoints.Count);
-            return _spawner.SpawnPoints[value].position;
+            SceneEntity entity = _prefabs[Random.Range(0, _prefabs.Count - 1)];
+            return entity;
         }
-
+        
         void IContextDispose.Dispose(IContext context)
         {
             _timer.OnEnded -= Spawn;

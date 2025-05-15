@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 2936706902829204865}
   - component: {fileID: 7803590597829711887}
   - component: {fileID: 3201509889298052983}
-  m_Layer: 0
+  - component: {fileID: 3612178482582639927}
+  m_Layer: 3
   m_Name: Figure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,6 +125,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 6.0908303
+--- !u!114 &3612178482582639927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464234920662154694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82752fed00d948f7a053c09fe615802c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 1316602260946151934}
 --- !u!1 &7949563539601960750
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,13 +152,13 @@ GameObject:
   - component: {fileID: 3071094014791900936}
   - component: {fileID: 8809745881233177360}
   - component: {fileID: 3107854761395182723}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5350173617005150201
 Transform:
   m_ObjectHideFlags: 0
@@ -204,6 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731bf1dce09748ac8c524f91bea00f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _entityTransform: {fileID: 5350173617005150201}
   _spriteRenderer: {fileID: 8809745881233177360}
   _animalSpriteRenderer: {fileID: 7803590597829711887}
 --- !u!212 &8809745881233177360
