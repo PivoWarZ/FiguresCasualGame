@@ -1,12 +1,15 @@
-﻿using Atomic.Contexts;
+﻿using System;
+using System.Collections.Generic;
+using Atomic.Contexts;
 using Atomic.Entities;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace FiguresGame
 {
     public class SetFiguresBehavior: IContextInit, IContextEnable, IContextDispose
     {
-        private FiguresStruct[] _struct;
+        private List<FiguresStruct> _struct = new();
         private int _count;
         private int _poolSize;
         private Color[] _colors;
@@ -44,6 +47,8 @@ namespace FiguresGame
                 {   
                     SetEntity(entity);
                 }
+                
+                _struct.Add(newFigure);
             }
 
             entity.GetColorSpriteRenderer().color = _setColor;

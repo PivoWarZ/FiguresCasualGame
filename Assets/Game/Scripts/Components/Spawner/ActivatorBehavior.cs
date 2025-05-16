@@ -18,7 +18,6 @@ namespace FiguresGame
 
         void IContextEnable.Enable(IContext context)
         {
-            Debug.Log("Enabling spawn points");
             context.GetSpawner().OnEntitySpawned.Subscribe(AddEntity);
             context.GetSpawner().OnAllEntitySpawned += ActivateEntitys;
         }
