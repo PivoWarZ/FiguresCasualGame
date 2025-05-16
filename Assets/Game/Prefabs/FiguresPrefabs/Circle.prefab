@@ -219,8 +219,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityTransform: {fileID: 5350173617005150201}
+  _moveInstaller:
+    _moveDirection:
+      value: {x: 0, y: 0, z: 0}
+    _moveSpeed: 5
   _colorSpriteRenderer: {fileID: 7803590597829711887}
   _animalSpriteRenderer: {fileID: 8809745881233177360}
+  _figureCollider: {fileID: 3201509889298052983}
 --- !u!212 &8809745881233177360
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -264,7 +269,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7371715787710312210, guid: 7eda26948af5e5f40aa0c239da5cbf39, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -292,7 +297,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2db0718c91ffe5843881e1e42a9bb369, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

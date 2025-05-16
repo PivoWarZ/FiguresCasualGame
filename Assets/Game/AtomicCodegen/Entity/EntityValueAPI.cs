@@ -18,13 +18,15 @@ namespace FiguresGame
         ///Keys
         public const int Transform = 2; // Transform
         public const int MoveSpeed = 3; // Const<float>
-        public const int MoveDirection = 4; // float3Reactive
+        public const int MoveDirection = 4; // ReactiveVariable<Vector3>
         public const int Position = 1; // float3Reactive
         public const int Rotation = 5; // quaternionReactive
         public const int AngularSpeed = 8; // Const<float>
         public const int TriggerEventReceiver = 9; // TriggerEventReceiver
         public const int Money = 10; // Const<int>
         public const int GameObject = 12; // GameObject
+        public const int OnBarPosition = 21; // Event<IEntity>
+        public const int TargetPoint = 22; // ReactiveVariable<Vector3>
 
 
         ///Extensions
@@ -65,13 +67,13 @@ namespace FiguresGame
         public static void SetMoveSpeed(this IEntity obj, Const<float> value) => obj.SetValue(MoveSpeed, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3Reactive GetMoveDirection(this IEntity obj) => obj.GetValue<float3Reactive>(MoveDirection);
+        public static ReactiveVariable<Vector3> GetMoveDirection(this IEntity obj) => obj.GetValue<ReactiveVariable<Vector3>>(MoveDirection);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetMoveDirection(this IEntity obj, out float3Reactive value) => obj.TryGetValue(MoveDirection, out value);
+        public static bool TryGetMoveDirection(this IEntity obj, out ReactiveVariable<Vector3> value) => obj.TryGetValue(MoveDirection, out value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool AddMoveDirection(this IEntity obj, float3Reactive value) => obj.AddValue(MoveDirection, value);
+        public static bool AddMoveDirection(this IEntity obj, ReactiveVariable<Vector3> value) => obj.AddValue(MoveDirection, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasMoveDirection(this IEntity obj) => obj.HasValue(MoveDirection);
@@ -80,7 +82,7 @@ namespace FiguresGame
         public static bool DelMoveDirection(this IEntity obj) => obj.DelValue(MoveDirection);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SetMoveDirection(this IEntity obj, float3Reactive value) => obj.SetValue(MoveDirection, value);
+        public static void SetMoveDirection(this IEntity obj, ReactiveVariable<Vector3> value) => obj.SetValue(MoveDirection, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float3Reactive GetPosition(this IEntity obj) => obj.GetValue<float3Reactive>(Position);
@@ -189,5 +191,41 @@ namespace FiguresGame
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetGameObject(this IEntity obj, GameObject value) => obj.SetValue(GameObject, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Event<IEntity> GetOnBarPosition(this IEntity obj) => obj.GetValue<Event<IEntity>>(OnBarPosition);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetOnBarPosition(this IEntity obj, out Event<IEntity> value) => obj.TryGetValue(OnBarPosition, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddOnBarPosition(this IEntity obj, Event<IEntity> value) => obj.AddValue(OnBarPosition, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasOnBarPosition(this IEntity obj) => obj.HasValue(OnBarPosition);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelOnBarPosition(this IEntity obj) => obj.DelValue(OnBarPosition);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetOnBarPosition(this IEntity obj, Event<IEntity> value) => obj.SetValue(OnBarPosition, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveVariable<Vector3> GetTargetPoint(this IEntity obj) => obj.GetValue<ReactiveVariable<Vector3>>(TargetPoint);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetTargetPoint(this IEntity obj, out ReactiveVariable<Vector3> value) => obj.TryGetValue(TargetPoint, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddTargetPoint(this IEntity obj, ReactiveVariable<Vector3> value) => obj.AddValue(TargetPoint, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasTargetPoint(this IEntity obj) => obj.HasValue(TargetPoint);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelTargetPoint(this IEntity obj) => obj.DelValue(TargetPoint);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetTargetPoint(this IEntity obj, ReactiveVariable<Vector3> value) => obj.SetValue(TargetPoint, value);
     }
 }

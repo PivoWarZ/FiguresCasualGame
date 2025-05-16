@@ -33,7 +33,7 @@ MonoBehaviour:
       type: Const<float>
     - id: 4
       name: MoveDirection
-      type: float3Reactive
+      type: ReactiveVariable<Vector3>
     - id: 1
       name: Position
       type: float3Reactive
@@ -52,6 +52,12 @@ MonoBehaviour:
     - id: 12
       name: GameObject
       type: GameObject
+    - id: 21
+      name: OnBarPosition
+      type: Event<IEntity>
+    - id: 22
+      name: TargetPoint
+      type: ReactiveVariable<Vector3>
   - name: Figure
     indexes:
     - id: 11
@@ -87,3 +93,6 @@ MonoBehaviour:
     - id: 20
       name: OnEntityClick
       type: Event<IEntity>
+    - id: 23
+      name: FigureCollider
+      type: Collider2D

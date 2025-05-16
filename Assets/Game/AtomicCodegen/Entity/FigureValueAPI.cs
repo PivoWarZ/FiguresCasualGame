@@ -27,6 +27,7 @@ namespace FiguresGame
         public const int BarPositions = 18; // List<Transform>
         public const int EntityBar = 19; // List<IEntity>
         public const int OnEntityClick = 20; // Event<IEntity>
+        public const int FigureCollider = 23; // Collider2D
 
 
         ///Extensions
@@ -227,5 +228,23 @@ namespace FiguresGame
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetOnEntityClick(this IEntity obj, Event<IEntity> value) => obj.SetValue(OnEntityClick, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Collider2D GetFigureCollider(this IEntity obj) => obj.GetValue<Collider2D>(FigureCollider);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetFigureCollider(this IEntity obj, out Collider2D value) => obj.TryGetValue(FigureCollider, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddFigureCollider(this IEntity obj, Collider2D value) => obj.AddValue(FigureCollider, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasFigureCollider(this IEntity obj) => obj.HasValue(FigureCollider);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelFigureCollider(this IEntity obj) => obj.DelValue(FigureCollider);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetFigureCollider(this IEntity obj, Collider2D value) => obj.SetValue(FigureCollider, value);
     }
 }

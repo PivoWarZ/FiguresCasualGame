@@ -46,6 +46,7 @@ namespace FiguresGame
                 {   
                     SetEntity(entity);
                     Debug.Log($"<color=green>REPEAT!</color>");
+                    return;
                 }
                 
                 _objectType++;
@@ -56,7 +57,6 @@ namespace FiguresGame
             entity.GetColorSpriteRenderer().color = _setColor;
             entity.GetAnimalSpriteRenderer().sprite = _setSprite;
             _count++;
-            Debug.Log(_objectType);
         }
 
         private bool UniquenessCheck(FiguresStruct newFigure)
