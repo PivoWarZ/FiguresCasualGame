@@ -10,6 +10,7 @@ namespace FiguresGame
         private RaycastHit _hit;
         private Vector3 _position;
         private bool _isClicked;
+        private const int LEFT_BUTTON = 0;
         
         public void Init(IEntity entity)
         {
@@ -18,7 +19,7 @@ namespace FiguresGame
         
         void IEntityUpdate.OnUpdate(IEntity entity, float deltaTime)
         {
-            if (Input.GetMouseButtonDown(0) && !_isClicked)
+            if (Input.GetMouseButtonDown(LEFT_BUTTON) && !_isClicked)
             {
                 _isClicked = true;
                 Debug.Log(_isClicked);
@@ -36,15 +37,12 @@ namespace FiguresGame
                 Debug.Log("MouseUp");
                 _isClicked = false;
             }
-
         }
 
         public void Dispose(IEntity entity)
         {
-            entity.GetOnEntityDelete().Invoke(entity);
+            Debug.Log("Dispose");
+            entity.GetOnEntityDestroy().Invoke(entity);
         }
-
-
-
     }
 }

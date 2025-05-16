@@ -22,7 +22,7 @@ namespace FiguresGame
         public const int SpriteColors = 13; // Color[]
         public const int AnimalSpriteRenderer = 14; // SpriteRenderer
         public const int ObjectType = 15; // ReactiveVariable<int>
-        public const int OnEntityDelete = 16; // Event<IEntity>
+        public const int OnEntityDestroy = 16; // Event<IEntity>
         public const int EntityTransform = 17; // Transform
         public const int BarPositions = 18; // List<Transform>
         public const int EntityBar = 19; // List<IEntity>
@@ -139,22 +139,22 @@ namespace FiguresGame
         public static void SetObjectType(this IEntity obj, ReactiveVariable<int> value) => obj.SetValue(ObjectType, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Event<IEntity> GetOnEntityDelete(this IEntity obj) => obj.GetValue<Event<IEntity>>(OnEntityDelete);
+        public static Event<IEntity> GetOnEntityDestroy(this IEntity obj) => obj.GetValue<Event<IEntity>>(OnEntityDestroy);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetOnEntityDelete(this IEntity obj, out Event<IEntity> value) => obj.TryGetValue(OnEntityDelete, out value);
+        public static bool TryGetOnEntityDestroy(this IEntity obj, out Event<IEntity> value) => obj.TryGetValue(OnEntityDestroy, out value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool AddOnEntityDelete(this IEntity obj, Event<IEntity> value) => obj.AddValue(OnEntityDelete, value);
+        public static bool AddOnEntityDestroy(this IEntity obj, Event<IEntity> value) => obj.AddValue(OnEntityDestroy, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool HasOnEntityDelete(this IEntity obj) => obj.HasValue(OnEntityDelete);
+        public static bool HasOnEntityDestroy(this IEntity obj) => obj.HasValue(OnEntityDestroy);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool DelOnEntityDelete(this IEntity obj) => obj.DelValue(OnEntityDelete);
+        public static bool DelOnEntityDestroy(this IEntity obj) => obj.DelValue(OnEntityDestroy);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SetOnEntityDelete(this IEntity obj, Event<IEntity> value) => obj.SetValue(OnEntityDelete, value);
+        public static void SetOnEntityDestroy(this IEntity obj, Event<IEntity> value) => obj.SetValue(OnEntityDestroy, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Transform GetEntityTransform(this IEntity obj) => obj.GetValue<Transform>(EntityTransform);

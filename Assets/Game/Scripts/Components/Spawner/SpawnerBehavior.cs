@@ -51,18 +51,15 @@ namespace FiguresGame
         {
             var index = FIRST_POOL_NUMBER;
             SceneEntity prefab = GetRandomEntity();
-            var _objectType = FIRST_ENTITY_TYPE;
             
             while (_count > 0)
             {
                 if (index % _spawner.PoolSize == 0)
                 {
                     prefab = GetRandomEntity();
-                    _objectType++;
                 }
                 
                 IEntity entity = SceneEntity.Instantiate(prefab, _figuresContainer);
-                entity.GetObjectType().Value = _objectType;
                 _spawner.OnEntitySpawned.Invoke(entity);
                 index++;
                 _count--;

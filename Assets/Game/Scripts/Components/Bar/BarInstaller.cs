@@ -1,18 +1,25 @@
+using System;
 using System.Collections.Generic;
+using Atomic.Contexts;
 using Atomic.Entities;
 using UnityEngine;
 
 namespace FiguresGame
 {
-    public class BarInstaller: SceneEntityInstallerBase
+    [Serializable]
+    public class BarInstaller: IContextSystem
     {
         [SerializeField] private List<Transform> _barPositions = new();
         private List<IEntity> _entitiesBar = new();
-        
-        public override void Install(IEntity entity)
+
+        public void AddEntity(IEntity entity)
         {
-            entity.AddBarPositions(_barPositions);
-            entity.AddEntityBar(_entitiesBar);
+            _entitiesBar.Add(entity);
+        }
+
+        public Transform GetBarPosition()
+        {
+            return _barPositions[_barPositions.Count];
         }
     }
 }

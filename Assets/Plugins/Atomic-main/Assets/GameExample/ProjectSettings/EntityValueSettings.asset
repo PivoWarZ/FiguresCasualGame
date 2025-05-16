@@ -73,7 +73,7 @@ MonoBehaviour:
       name: ObjectType
       type: ReactiveVariable<int>
     - id: 16
-      name: OnEntityDelete
+      name: OnEntityDestroy
       type: Event<IEntity>
     - id: 17
       name: EntityTransform

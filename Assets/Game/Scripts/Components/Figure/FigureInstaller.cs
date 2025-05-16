@@ -7,7 +7,7 @@ namespace FiguresGame
 {
     public class FigureInstaller: SceneEntityInstallerBase
     { 
-        public Event<IEntity> OnEntityDeleted;
+        public Event<IEntity> OnEntityDestroy;
         public Event<IEntity> OnEntityClick;
 
         [SerializeField] private Transform _entityTransform;
@@ -19,7 +19,7 @@ namespace FiguresGame
         {
             entity.AddOnEntityClick(OnEntityClick);
             entity.AddEntityTransform(_entityTransform);
-            entity.AddOnEntityDelete(OnEntityDeleted);
+            entity.AddOnEntityDestroy(OnEntityDestroy);
             entity.AddColorSpriteRenderer(_colorSpriteRenderer);
             entity.AddAnimalSpriteRenderer(_animalSpriteRenderer);
             entity.AddObjectType(_objectType);

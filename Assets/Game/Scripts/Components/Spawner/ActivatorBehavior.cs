@@ -7,8 +7,8 @@ namespace FiguresGame
 {
     public class ActivatorBehavior: IContextInit, IContextEnable, IContextDispose
     {
-        private List<IEntity> _spawnedEntities = new();
-        private List<IEntity> _activeEntities = new();
+        private readonly List<IEntity> _spawnedEntities = new();
+        private readonly List<IEntity> _activeEntities = new();
         private List<Transform> _positions;
         private const int FIRST_SPAWN_POSITION = 0;
         void IContextInit.Init(IContext context)
@@ -26,7 +26,7 @@ namespace FiguresGame
         {
             var positionIndex = FIRST_SPAWN_POSITION;
             
-            while (_spawnedEntities.Count - 1 > 0)
+            while (_spawnedEntities.Count > 0)
             {
                 var index = Random.Range(0, _spawnedEntities.Count - 1);
                 IEntity entity = _spawnedEntities[index];
@@ -34,6 +34,7 @@ namespace FiguresGame
                 entityTransform.position = _positions[positionIndex].position;
                 _activeEntities.Add(entity);
                 _spawnedEntities.Remove(entity);
+                entity.GetOnEntityDestroy();
                 entityTransform.gameObject.SetActive(true);
                 positionIndex++;
                 

@@ -16,6 +16,7 @@ namespace FiguresGame
         private Sprite[] _sprites;
         private Color _setColor;
         private Sprite _setSprite;
+        private int _objectType;
         
         public void Init(IContext context)
         {
@@ -33,8 +34,6 @@ namespace FiguresGame
 
         private void SetEntity(IEntity entity)
         {
-            Debug.Log(entity.GetObjectType().Value % _poolSize);
-            
             if (_count % _poolSize == 0)
             {
                 _setColor = _colors[Random.Range(0, _colors.Length - 1)];
@@ -46,15 +45,18 @@ namespace FiguresGame
                 if (!isUnique)
                 {   
                     SetEntity(entity);
+                    Debug.Log($"<color=green>REPEAT!</color>");
                 }
                 
+                _objectType++;
                 _struct.Add(newFigure);
             }
 
+            entity.GetObjectType().Value = _objectType;
             entity.GetColorSpriteRenderer().color = _setColor;
             entity.GetAnimalSpriteRenderer().sprite = _setSprite;
             _count++;
-            //Debug.Log($"Color {entity.GetColorSpriteRenderer().color} => {_setColor}");
+            Debug.Log(_objectType);
         }
 
         private bool UniquenessCheck(FiguresStruct newFigure)

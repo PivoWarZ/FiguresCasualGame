@@ -11,11 +11,9 @@ namespace FiguresGame
     {
         [SerializeField] private Transform _figuresContainer;
 
-
         public void Install(IContext context)
         {
-            context.AddFiguresContainer((_figuresContainer));
-            
+            context.AddFiguresContainer(_figuresContainer);
         }
     }
 }
