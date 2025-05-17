@@ -7,9 +7,9 @@ namespace FiguresGame
 {
     public class FigureInstaller: SceneEntityInstallerBase, IEntityDispose
     { 
-        public Event<IEntity> OnEntityDestroy;
         public Event<IEntity> OnEntityClick;
         public Event<IEntity> OnBarPosition;
+        public Event<IEntity> OnEntityDestroy;
 
         [SerializeField] private Transform _entityTransform;
         [SerializeField] private MoveInstaller _moveInstaller;

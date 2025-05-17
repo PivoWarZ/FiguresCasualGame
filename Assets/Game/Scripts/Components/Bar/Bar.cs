@@ -11,10 +11,12 @@ namespace FiguresGame
     {
         [SerializeField] private List<Transform> _barPositions = new();
         private List<IEntity> _entitiesBar = new();
+        private int pool;
 
         public void Install(IContext context)
         {
             context.GetSpawner().OnEntitySpawned.Subscribe(Subscribes);
+            pool = context.GetSpawner().PoolSize;
         }
 
         private void Subscribes(IEntity entity)
@@ -22,13 +24,47 @@ namespace FiguresGame
             entity.GetOnEntityClick().Subscribe(GetMoveDirectionTransform);
             entity.GetOnBarPosition().Subscribe(EntityInBar);
             entity.GetOnEntityDestroy().Subscribe(Unsubscribes);
-            Debug.Log("BarSubscribes");
         }
 
         private void EntityInBar(IEntity entity)
         {
-            _entitiesBar.Add(entity);
-            Debug.Log("InBar");
+            var objectType = entity.GetObjectType().Value;
+            
+            bool isDelete = SearchMatches(entity);
+
+            if (isDelete)
+            {
+                DeleteBarEntities(objectType);
+            }
+        }
+
+        private void DeleteBarEntities(int objectType)
+        {
+            foreach (var entity in _entitiesBar)
+            {
+                if (entity.GetObjectType().Value == objectType)
+                {
+                    SceneEntity.Destroy(entity.GetEntityTransform().gameObject);
+                }
+            }
+        }
+
+        private bool SearchMatches(IEntity entity)
+        {
+            var objectType = entity.GetObjectType().Value;
+            int count = 0;
+            
+            foreach (var barEntity in _entitiesBar)
+            {
+                var barType = barEntity.GetObjectType().Value;
+
+                if (objectType == barType)
+                {
+                    count++;
+                }
+            }
+
+            return count >= pool;
         }
 
         private void GetMoveDirectionTransform(IEntity entity)
@@ -38,16 +74,9 @@ namespace FiguresGame
                 return;
             }
             
-            var entityRigidBody = entity.GetEntityTransform().gameObject.GetComponent<Rigidbody2D>();
-            entityRigidBody.bodyType = RigidbodyType2D.Kinematic;
-            entityRigidBody.angularVelocity = 0;
-            entityRigidBody.linearVelocity = Vector2.zero;
-            var entityCollider = entity.GetFigureCollider();
-            Debug.Log(entityCollider);
-            entityCollider.enabled = false;
-            entity.GetTargetPoint().Value = _barPositions[_entitiesBar.Count].position;
+            SetEntityForTransit(entity);
+            entity.GetTargetPoint().Value = GetBarPosition();
             _entitiesBar.Add(entity);
-            Debug.Log("Set Target Point");
         }
 
         private void Unsubscribes(IEntity entity)
@@ -57,14 +86,19 @@ namespace FiguresGame
             entity.GetOnEntityDestroy().Unsubscribe(Unsubscribes);
         }
 
-        public void AddEntity(IEntity entity)
+        private void SetEntityForTransit(IEntity entity)
         {
-            _entitiesBar.Add(entity);
+            var entityRigidBody = entity.GetEntityTransform().gameObject.GetComponent<Rigidbody2D>();
+            entityRigidBody.bodyType = RigidbodyType2D.Kinematic;
+            entityRigidBody.angularVelocity = 0;
+            entityRigidBody.linearVelocity = Vector2.zero;
+            var entityCollider = entity.GetFigureCollider();
+            entityCollider.enabled = false;
         }
 
-        public Transform GetBarPosition()
+        public Vector3 GetBarPosition()
         {
-            return _barPositions[_barPositions.Count];
+            return _barPositions[_entitiesBar.Count].position;
         }
     }
 }

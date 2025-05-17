@@ -9,7 +9,7 @@ namespace FiguresGame
 {
     public class SetFiguresBehavior: IContextInit, IContextEnable, IContextDispose
     {
-        private List<FiguresStruct> _struct = new();
+        private readonly List<FiguresStruct> _struct = new();
         private int _count;
         private int _poolSize;
         private Color[] _colors;

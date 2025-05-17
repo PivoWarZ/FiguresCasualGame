@@ -19,7 +19,6 @@ namespace Game.Scripts.Components
                 
                 Vector2 direction = Vector2.up;
                 RaycastHit2D hit = Physics2D.Raycast(origin, direction, 0.2f);
-                Debug.DrawRay(origin, direction*0.2f, Color.yellow);
                 
                 
                 if (hit.collider != null)

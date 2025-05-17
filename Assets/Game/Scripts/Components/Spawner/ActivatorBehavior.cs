@@ -45,9 +45,9 @@ namespace FiguresGame
             }
         }
 
-        private void AddEntity(IEntity obj)
+        private void AddEntity(IEntity entity)
         {
-            _spawnedEntities.Add(obj);
+            _spawnedEntities.Add(entity);
         }
 
         private int GetRandomIndexPosition()

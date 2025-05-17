@@ -12,12 +12,14 @@ namespace FiguresGame
             {
                 return;
             }
+            
             entity.GetMoveDirection().Value = entity.GetTargetPoint().Value - entity.GetEntityTransform().position;
             entity.GetEntityTransform().position += entity.GetMoveDirection().Value.normalized * (entity.GetMoveSpeed().Value * deltaTime);
 
             if (entity.GetMoveDirection().Value.sqrMagnitude <= 0.01f)
             {
                 _isMoving = false;
+                entity.GetOnBarPosition().Invoke(entity);
             }
         }
 
