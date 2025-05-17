@@ -1,11 +1,12 @@
 using Atomic.Elements;
 using Atomic.Entities;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace FiguresGame
 {
-    public class FigureInstaller: SceneEntityInstallerBase, IEntityDispose
+    public class FigureInstaller: SceneEntityInstallerBase
     { 
         public Event<IEntity> OnEntityClick;
         public Event<IEntity> OnBarPosition;
@@ -32,11 +33,6 @@ namespace FiguresGame
             _moveInstaller.Install(entity);
             
             entity.AddBehaviour(new MoveToPointBehavior());
-        }
-
-        void IEntityDispose.Dispose(IEntity entity)
-        {
-            OnEntityDestroy?.Invoke(entity);
         }
     }
 }

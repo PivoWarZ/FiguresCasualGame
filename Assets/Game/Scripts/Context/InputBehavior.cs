@@ -23,8 +23,6 @@ namespace Game.Scripts.Components
                 
                 if (hit.collider != null)
                 {
-                    Debug.Log(hit.collider.gameObject.name);
-                    
                     if (hit.collider.gameObject.TryGetEntity(out IEntity detectedEntity))
                     {
                         detectedEntity.GetOnEntityClick()?.Invoke(detectedEntity);

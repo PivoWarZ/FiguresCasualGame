@@ -26,7 +26,7 @@ namespace FiguresGame
             _timer.OnStopped += AllEntitysSpawned;
             
             context.AddSystem(new SpawnerBehavior());
-            context.AddSystem(new ActivatorBehavior());
+            context.AddSystem(new ActiveEntitiesBehavior());
             context.AddSystem(new SetFiguresBehavior());
         }
         

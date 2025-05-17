@@ -10,6 +10,7 @@ namespace FiguresGame
     public class Bar: IContextInstaller
     {
         [SerializeField] private List<Transform> _barPositions = new();
+        private List<IEntity> _transitEntities = new();
         private List<IEntity> _entitiesBar = new();
         private int pool;
 
@@ -28,7 +29,12 @@ namespace FiguresGame
 
         private void EntityInBar(IEntity entity)
         {
+            _entitiesBar.Add(entity);
+            Debug.Log($"Bar {_entitiesBar.Count}");
+            
             var objectType = entity.GetObjectType().Value;
+            
+            ClearList(_transitEntities, objectType, true);
             
             bool isDelete = SearchMatches(entity);
 
@@ -40,11 +46,47 @@ namespace FiguresGame
 
         private void DeleteBarEntities(int objectType)
         {
+            List<IEntity> buffer = new List<IEntity>();
+            
             foreach (var entity in _entitiesBar)
             {
                 if (entity.GetObjectType().Value == objectType)
                 {
                     SceneEntity.Destroy(entity.GetEntityTransform().gameObject);
+                }
+                else
+                {
+                    buffer.Add(entity);
+                }
+            }
+            
+            _entitiesBar.Clear(); 
+            Debug.Log($"Bar {_entitiesBar.Count}");
+
+            foreach (var entity in buffer)
+            {
+                GetMoveDirectionTransform(entity);
+            }
+            
+            buffer.Clear();
+
+            Debug.Log($"Bar {_entitiesBar.Count}");
+        }
+
+        private void ClearList(List<IEntity> entityList, int objectType, bool firstOnly = false)
+        {
+            for (var index = 0; index < entityList.Count; index++)
+            {
+                var entity = entityList[index];
+                
+                if (entity.GetObjectType().Value == objectType)
+                {
+                    entityList.Remove(entity);
+
+                    if (firstOnly)
+                    {
+                        return;
+                    }
                 }
             }
         }
@@ -76,7 +118,7 @@ namespace FiguresGame
             
             SetEntityForTransit(entity);
             entity.GetTargetPoint().Value = GetBarPosition();
-            _entitiesBar.Add(entity);
+            _transitEntities.Add(entity);
         }
 
         private void Unsubscribes(IEntity entity)
@@ -98,7 +140,7 @@ namespace FiguresGame
 
         public Vector3 GetBarPosition()
         {
-            return _barPositions[_entitiesBar.Count].position;
+            return _barPositions[_entitiesBar.Count + _transitEntities.Count].position;
         }
     }
 }

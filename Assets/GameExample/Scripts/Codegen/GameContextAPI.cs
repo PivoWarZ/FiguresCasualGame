@@ -19,6 +19,7 @@ namespace FiguresGame
 		public const int GameCountdown = 10; // Countdown
 		public const int CoinSystemData = 13; // CoinSystemData
 		public const int WorldTransform = 7; // Transform
+		public const int ActivesEntities = 14; // ActiveEntitiesBehavior
 
 
 		///Extensions
@@ -93,5 +94,23 @@ namespace FiguresGame
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasWorldTransform(this IContext obj) => obj.HasValue(WorldTransform);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static ActiveEntitiesBehavior GetActivesEntities(this IContext obj) => obj.ResolveValue<ActiveEntitiesBehavior>(ActivesEntities);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetActivesEntities(this IContext obj, out ActiveEntitiesBehavior value) => obj.TryResolveValue(ActivesEntities, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddActivesEntities(this IContext obj, ActiveEntitiesBehavior value) => obj.AddValue(ActivesEntities, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelActivesEntities(this IContext obj) => obj.DelValue(ActivesEntities);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetActivesEntities(this IContext obj, ActiveEntitiesBehavior value) => obj.SetValue(ActivesEntities, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasActivesEntities(this IContext obj) => obj.HasValue(ActivesEntities);
     }
 }

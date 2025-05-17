@@ -18,8 +18,9 @@ namespace FiguresGame
 
             if (entity.GetMoveDirection().Value.sqrMagnitude <= 0.01f)
             {
-                _isMoving = false;
                 entity.GetOnBarPosition().Invoke(entity);
+                entity.GetTargetPoint().Value = Vector3.zero;
+                _isMoving = false;
             }
         }
 
@@ -36,11 +37,14 @@ namespace FiguresGame
         public void Dispose(IEntity entity)
         {
             entity.GetTargetPoint().Unsubscribe(Move);
+            Debug.Log("Dispose Entity");
+            entity.GetOnEntityDestroy()?.Invoke(entity);
         }
 
         public void Init(IEntity entity)
         {
             _isMoving = false;
         }
+        
     }
 }

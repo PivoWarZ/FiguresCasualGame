@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FiguresGame
 {
-    public class ActivatorBehavior: IContextInit, IContextEnable, IContextDispose
+    public class ActiveEntitiesBehavior: IContextInit, IContextEnable, IContextDispose, IEntityDispose
     {
         private readonly List<IEntity> _spawnedEntities = new();
         private readonly List<IEntity> _activeEntities = new();
@@ -19,10 +19,10 @@ namespace FiguresGame
         void IContextEnable.Enable(IContext context)
         {
             context.GetSpawner().OnEntitySpawned.Subscribe(AddEntity);
-            context.GetSpawner().OnAllEntitySpawned += ActivateEntitys;
+            context.GetSpawner().OnAllEntitySpawned += ActivateEntities;
         }
 
-        private void ActivateEntitys()
+        private void ActivateEntities()
         {
             var positionIndex = FIRST_SPAWN_POSITION;
             
@@ -48,17 +48,39 @@ namespace FiguresGame
         private void AddEntity(IEntity entity)
         {
             _spawnedEntities.Add(entity);
+            entity.GetOnEntityDestroy().Subscribe(DeleteEntity);
         }
 
-        private int GetRandomIndexPosition()
+        private void DeleteEntity(IEntity entity)
         {
-            return Random.Range(0, _positions.Count - 1);
+            var objectType = entity.GetObjectType().Value;
+
+            for (var index = 0; index < _activeEntities.Count; index++)
+            {
+                var activeEntity = _activeEntities[index];
+                var activeEntityType = activeEntity.GetObjectType().Value;
+
+                if (objectType == activeEntityType)
+                {
+                    _activeEntities.Remove(activeEntity);
+                }
+            }
+
+            if (_activeEntities.Count == 0)
+            {
+                Debug.Log($"<color=red>GAMEOVER</color>");
+            }
         }
 
         void IContextDispose.Dispose(IContext context)
         {
             context.GetSpawner().OnEntitySpawned.Unsubscribe(AddEntity);
-            context.GetSpawner().OnAllEntitySpawned -= ActivateEntitys;
+            context.GetSpawner().OnAllEntitySpawned -= ActivateEntities;
+        }
+
+        public void Dispose(IEntity entity)
+        {
+            entity.GetOnEntityDestroy().Unsubscribe(DeleteEntity);
         }
     }
 }

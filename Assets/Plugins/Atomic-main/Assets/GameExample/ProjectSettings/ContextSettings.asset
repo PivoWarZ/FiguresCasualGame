@@ -36,6 +36,9 @@ MonoBehaviour:
     - id: 7
       name: WorldTransform
       type: Transform
+    - id: 14
+      name: ActivesEntities
+      type: ActiveEntitiesBehavior
   - Name: Player
     Namespace: FiguresGame
     DirectoryPath: Assets/Game/AtomicCodegen/Context
