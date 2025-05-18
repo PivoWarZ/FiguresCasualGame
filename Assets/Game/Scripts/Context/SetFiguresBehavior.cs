@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace FiguresGame
 {
-    public class SetFiguresBehavior: IContextInit, IContextEnable, IContextDispose
+    public sealed class SetFiguresBehavior: IContextInit, IContextEnable, IContextDispose
     {
         private readonly List<FiguresStruct> _struct = new();
         private int _count;

@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Game.Scripts.Components
 {
-    public class InputBehavior: IContextUpdate
-
+    public sealed class InputBehavior: IContextUpdate
     {
+        private const int LEFT_BUTTON = 0;
         public void Update(IContext context, float deltaTime)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(LEFT_BUTTON))
             {
                 Vector3 mouseScreenPosition = Input.mousePosition;
                 

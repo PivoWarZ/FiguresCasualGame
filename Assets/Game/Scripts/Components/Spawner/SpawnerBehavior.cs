@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace FiguresGame
 {
-    public class SpawnerBehavior: IContextInit, IContextEnable
+    public sealed class SpawnerBehavior: IContextInit, IContextEnable
     {
         private SpawnerInstaller _spawner;
         private List<SceneEntity> _prefabs = new();
@@ -50,7 +50,7 @@ namespace FiguresGame
 
         private SceneEntity GetRandomEntity()
         {
-            SceneEntity entity = _prefabs[Random.Range(0, _prefabs.Count - 1)];
+            SceneEntity entity = _prefabs[Random.Range(0, _prefabs.Count)];
             return entity;
         }
     }

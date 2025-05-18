@@ -3,11 +3,10 @@ using Atomic.Elements;
 using Game.Scripts.Components;
 using Game.Scripts.Context;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace FiguresGame
 {
-    public class FiguresGameContext: SceneContextInstallerBase
+    public sealed class FiguresGameContext: SceneContextInstallerBase
     {
         [SerializeField] private ServiceLocator _serviceLocator;
         [SerializeField] private SpawnerInstaller _spawner;
@@ -32,6 +31,7 @@ namespace FiguresGame
             context.AddSystem(new InputBehavior());
             context.AddSystem(activeEntitiesBehavior);
             context.AddSystem(_uiFiguresContext);
+            context.AddSystem(_bar);
         }
     }
 }

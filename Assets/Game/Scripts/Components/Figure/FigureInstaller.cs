@@ -1,7 +1,6 @@
 using Atomic.Elements;
 using Atomic.Entities;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace FiguresGame

@@ -8,7 +8,7 @@ using Event = Atomic.Elements.Event;
 namespace FiguresGame
 {
     [Serializable]
-    public class Bar: IContextInstaller, IContextDispose, IContextEnable
+    public sealed class Bar: IContextInstaller, IContextDispose, IContextEnable, IContextInit
     {
         public Event OnLoose = new();
         
@@ -20,6 +20,10 @@ namespace FiguresGame
         public void Install(IContext context)
         {
             context.AddOnLoose(OnLoose);
+        }
+
+        void IContextInit.Init(IContext context)
+        {
             pool = context.GetSpawner().PoolSize;
         }
         
@@ -128,12 +132,6 @@ namespace FiguresGame
             }
         }
 
-        private void Unsubscribes(IEntity entity)
-        {
-            entity.GetOnEntityClick().Unsubscribe(GetMoveDirectionTransform);
-            entity.GetOnBarPosition().Unsubscribe(EntityInBar);
-            entity.GetOnEntityDestroy().Unsubscribe(Unsubscribes);
-        }
 
         private void SetEntityForTransit(IEntity entity)
         {
@@ -162,6 +160,13 @@ namespace FiguresGame
             return freePosition;
         }
 
+        private void Unsubscribes(IEntity entity)
+        {
+            entity.GetOnEntityClick().Unsubscribe(GetMoveDirectionTransform);
+            entity.GetOnBarPosition().Unsubscribe(EntityInBar);
+            entity.GetOnEntityDestroy().Unsubscribe(Unsubscribes);
+        }
+        
         void IContextDispose.Dispose(IContext context)
         {
             context.GetSpawner().OnEntitySpawned.Unsubscribe(Subscribes);

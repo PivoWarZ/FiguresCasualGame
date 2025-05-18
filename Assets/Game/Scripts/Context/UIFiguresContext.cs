@@ -9,7 +9,7 @@ using UnityEngine.UI;
 namespace Game.Scripts.Context
 {
     [Serializable]
-    public class UIFiguresContext: IContextInit, IContextEnable, IContextDispose
+    public sealed class UIFiguresContext: IContextInit, IContextEnable, IContextDispose
     {
         [SerializeField] private Button _startButton;
         [SerializeField] private Button _winscreen;
@@ -42,7 +42,6 @@ namespace Game.Scripts.Context
             _loosescreen.onClick.AddListener(Reload);
             _startButton.onClick.AddListener(StartGame);
             
-            _refreshButton.gameObject.SetActive(true);
             _startButton.gameObject.SetActive(true);
         }
 
@@ -50,6 +49,7 @@ namespace Game.Scripts.Context
         {
             _spawner.Spawn(_spawner.SpawnCount);
             _startButton.gameObject.SetActive(false);
+            _refreshButton.gameObject.SetActive(true);
         }
 
         private void Reload()
@@ -60,7 +60,8 @@ namespace Game.Scripts.Context
 
         private void ShowLooseScreen()
         {
-                _loosescreen.gameObject.SetActive(true);
+            _loosescreen.gameObject.SetActive(true);
+            _refreshButton.gameObject.SetActive(false);
         }
 
         private void ShowWinScreen(int count)

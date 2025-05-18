@@ -10,7 +10,7 @@ using Timer = Atomic.Elements.Timer;
 namespace FiguresGame
 {
     [Serializable]
-    public class SpawnerInstaller: IContextInstaller
+    public sealed class SpawnerInstaller: IContextInstaller
     {
         public event Action<int> OnSpawn;
         public Event<IEntity> OnEntitySpawned = new();
@@ -20,6 +20,7 @@ namespace FiguresGame
         [SerializeField] private List<Transform> _spawnPoints;
         [SerializeField] private int _spawnCount;
         [SerializeField] private int _poolSize = 3;
+        
         public void Install(IContext context)
         {
             context.AddSystem(new SpawnerBehavior());
@@ -41,6 +42,5 @@ namespace FiguresGame
         {
             OnSpawn?.Invoke(count);
         }
-
     }
 }

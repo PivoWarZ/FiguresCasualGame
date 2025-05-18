@@ -3,9 +3,11 @@ using UnityEngine;
 
 namespace FiguresGame
 {
-    public class MoveToPointBehavior: IEntityUpdate, IEntityDispose, IEntityEnable, IEntityInit
+    public sealed class MoveToPointBehavior: IEntityUpdate, IEntityDispose, IEntityEnable, IEntityInit
     {
         private bool _isMoving;
+        private const float STAY_IN = 0.01f;
+        
         void IEntityUpdate.OnUpdate(IEntity entity, float deltaTime)
         {
             if (!_isMoving)
@@ -16,7 +18,7 @@ namespace FiguresGame
             entity.GetMoveDirection().Value = entity.GetTargetPoint().Value - entity.GetEntityTransform().position;
             entity.GetEntityTransform().position += entity.GetMoveDirection().Value.normalized * (entity.GetMoveSpeed().Value * deltaTime);
 
-            if (entity.GetMoveDirection().Value.sqrMagnitude <= 0.01f)
+            if (entity.GetMoveDirection().Value.sqrMagnitude <= STAY_IN)
             {
                 entity.GetOnBarPosition().Invoke(entity);
                 entity.GetTargetPoint().Value = Vector3.zero;
@@ -44,6 +46,5 @@ namespace FiguresGame
         {
             _isMoving = false;
         }
-        
     }
 }

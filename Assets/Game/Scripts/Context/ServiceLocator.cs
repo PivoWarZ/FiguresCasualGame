@@ -6,8 +6,7 @@ using UnityEngine;
 namespace FiguresGame
 {
     [Serializable]
-    public class ServiceLocator: IContextInstaller
-
+    public sealed class ServiceLocator: IContextInstaller
     {
         [SerializeField] private Transform _figuresContainer;
 

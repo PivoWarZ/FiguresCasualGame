@@ -5,8 +5,7 @@ using UnityEngine;
 namespace FiguresGame
 {
     [Serializable]
-    public class Settings: IContextSystem
-
+    public sealed class Settings: IContextSystem
     {
         [SerializeField] private Color[] _colors;
         [SerializeField] private Sprite[] _sprites;

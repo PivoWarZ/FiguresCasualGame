@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FiguresGame
 {
-    public class ActiveEntitiesBehavior: IContextInit, IContextEnable, IContextDispose, IEntityDispose, IContextUpdate
+    public sealed class ActiveEntitiesBehavior: IContextInit, IContextEnable, IContextDispose, IEntityDispose, IContextUpdate
     {
         public ReactiveVariable<int> ActiveEntitiesCount = new ();
         
