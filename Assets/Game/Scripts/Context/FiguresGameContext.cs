@@ -1,4 +1,5 @@
 using Atomic.Contexts;
+using Atomic.Elements;
 using Game.Scripts.Components;
 using Game.Scripts.Context;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace FiguresGame
     {
         [SerializeField] private ServiceLocator _serviceLocator;
         [SerializeField] private SpawnerInstaller _spawner;
+        [SerializeField] private Timer _timer;
         [SerializeField] private Settings _settings;
         [SerializeField] private Bar _bar;
         [SerializeField] private UIFiguresContext _uiFiguresContext;
@@ -21,6 +23,7 @@ namespace FiguresGame
             context.AddActivesEntities(activeEntitiesBehavior);
             context.AddSpawner(_spawner);
             context.AddSettings(_settings);
+            context.AddTimer(_timer);
             
             _serviceLocator.Install(context);
             _spawner.Install(context);

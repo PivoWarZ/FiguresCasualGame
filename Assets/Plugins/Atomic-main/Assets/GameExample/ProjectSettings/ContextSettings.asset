@@ -39,6 +39,15 @@ MonoBehaviour:
     - id: 14
       name: ActivesEntities
       type: ActiveEntitiesBehavior
+    - id: 15
+      name: Timer
+      type: Timer
+    - id: 16
+      name: OnWinConditionExamination
+      type: IEvent
+    - id: 17
+      name: OnLoose
+      type: IEvent
   - Name: Player
     Namespace: FiguresGame
     DirectoryPath: Assets/Game/AtomicCodegen/Context

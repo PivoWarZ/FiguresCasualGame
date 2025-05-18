@@ -96,3 +96,6 @@ MonoBehaviour:
     - id: 23
       name: FigureCollider
       type: Collider2D
+    - id: 24
+      name: ID
+      type: ReactiveVariable<int>

@@ -17,6 +17,7 @@ namespace FiguresGame
         [SerializeField] private SpriteRenderer _colorSpriteRenderer;
         [SerializeField] private SpriteRenderer _animalSpriteRenderer;
         [SerializeField] private Collider2D _figureCollider;
+        [ShowInInspector] ReactiveVariable<int> _id = new();
         [ShowInInspector] ReactiveVariable<int> _objectType = new();
       
         public override void Install(IEntity entity)
@@ -29,6 +30,7 @@ namespace FiguresGame
             entity.AddColorSpriteRenderer(_colorSpriteRenderer);
             entity.AddAnimalSpriteRenderer(_animalSpriteRenderer);
             entity.AddObjectType(_objectType);
+            entity.AddID(_id);
             
             _moveInstaller.Install(entity);
             

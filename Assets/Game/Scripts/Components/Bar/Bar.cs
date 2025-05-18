@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using Atomic.Contexts;
 using Atomic.Entities;
 using UnityEngine;
+using Event = Atomic.Elements.Event;
 
 namespace FiguresGame
 {
     [Serializable]
-    public class Bar: IContextInstaller
+    public class Bar: IContextInstaller, IContextDispose, IContextEnable
     {
+        public Event OnLoose = new();
+        
         [SerializeField] private List<Transform> _barPositions = new();
         private List<IEntity> _transitEntities = new();
         private List<IEntity> _entitiesBar = new();
@@ -16,10 +19,15 @@ namespace FiguresGame
 
         public void Install(IContext context)
         {
-            context.GetSpawner().OnEntitySpawned.Subscribe(Subscribes);
+            context.AddOnLoose(OnLoose);
             pool = context.GetSpawner().PoolSize;
         }
-
+        
+        void IContextEnable.Enable(IContext context)
+        {
+            context.GetSpawner().OnEntitySpawned.Subscribe(Subscribes);
+        }
+        
         private void Subscribes(IEntity entity)
         {
             entity.GetOnEntityClick().Subscribe(GetMoveDirectionTransform);
@@ -40,6 +48,11 @@ namespace FiguresGame
             if (isDelete)
             {
                 DeleteBarEntities(objectType);
+            }
+
+            if (_entitiesBar.Count == _barPositions.Count)
+            {
+                OnLoose?.Invoke();
             }
         }
 
@@ -107,14 +120,12 @@ namespace FiguresGame
 
         private void GetMoveDirectionTransform(IEntity entity)
         {
-            if (_barPositions.Count == _entitiesBar.Count)
+            if (TryGetBarPosition(out Vector3 position))
             {
-                return;
+                SetEntityForTransit(entity);
+                entity.GetTargetPoint().Value = position;
+                _transitEntities.Add(entity);
             }
-            
-            SetEntityForTransit(entity);
-            entity.GetTargetPoint().Value = GetBarPosition();
-            _transitEntities.Add(entity);
         }
 
         private void Unsubscribes(IEntity entity)
@@ -134,9 +145,26 @@ namespace FiguresGame
             entityCollider.enabled = false;
         }
 
-        public Vector3 GetBarPosition()
+        public bool TryGetBarPosition(out Vector3 position)
         {
-            return _barPositions[_entitiesBar.Count + _transitEntities.Count].position;
+            bool freePosition = true;
+            var occupiedPositions = _entitiesBar.Count + _transitEntities.Count;
+            if (occupiedPositions == _barPositions.Count)
+            {
+                position = Vector3.zero;
+                freePosition = false;
+            }
+            else
+            {
+                position = _barPositions[_entitiesBar.Count + _transitEntities.Count].position;
+            }
+
+            return freePosition;
+        }
+
+        void IContextDispose.Dispose(IContext context)
+        {
+            context.GetSpawner().OnEntitySpawned.Unsubscribe(Subscribes);
         }
     }
 }

@@ -37,7 +37,6 @@ namespace FiguresGame
         public void Dispose(IEntity entity)
         {
             entity.GetTargetPoint().Unsubscribe(Move);
-            Debug.Log("Dispose Entity");
             entity.GetOnEntityDestroy()?.Invoke(entity);
         }
 

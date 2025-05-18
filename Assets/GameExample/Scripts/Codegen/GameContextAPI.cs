@@ -20,6 +20,9 @@ namespace FiguresGame
 		public const int CoinSystemData = 13; // CoinSystemData
 		public const int WorldTransform = 7; // Transform
 		public const int ActivesEntities = 14; // ActiveEntitiesBehavior
+		public const int Timer = 15; // Timer
+		public const int OnWinConditionExamination = 16; // IEvent
+		public const int OnLoose = 17; // IEvent
 
 
 		///Extensions
@@ -112,5 +115,59 @@ namespace FiguresGame
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasActivesEntities(this IContext obj) => obj.HasValue(ActivesEntities);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Timer GetTimer(this IContext obj) => obj.ResolveValue<Timer>(Timer);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetTimer(this IContext obj, out Timer value) => obj.TryResolveValue(Timer, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddTimer(this IContext obj, Timer value) => obj.AddValue(Timer, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelTimer(this IContext obj) => obj.DelValue(Timer);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetTimer(this IContext obj, Timer value) => obj.SetValue(Timer, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasTimer(this IContext obj) => obj.HasValue(Timer);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static IEvent GetOnWinConditionExamination(this IContext obj) => obj.ResolveValue<IEvent>(OnWinConditionExamination);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetOnWinConditionExamination(this IContext obj, out IEvent value) => obj.TryResolveValue(OnWinConditionExamination, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddOnWinConditionExamination(this IContext obj, IEvent value) => obj.AddValue(OnWinConditionExamination, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelOnWinConditionExamination(this IContext obj) => obj.DelValue(OnWinConditionExamination);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetOnWinConditionExamination(this IContext obj, IEvent value) => obj.SetValue(OnWinConditionExamination, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasOnWinConditionExamination(this IContext obj) => obj.HasValue(OnWinConditionExamination);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static IEvent GetOnLoose(this IContext obj) => obj.ResolveValue<IEvent>(OnLoose);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetOnLoose(this IContext obj, out IEvent value) => obj.TryResolveValue(OnLoose, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddOnLoose(this IContext obj, IEvent value) => obj.AddValue(OnLoose, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelOnLoose(this IContext obj) => obj.DelValue(OnLoose);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetOnLoose(this IContext obj, IEvent value) => obj.SetValue(OnLoose, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasOnLoose(this IContext obj) => obj.HasValue(OnLoose);
     }
 }

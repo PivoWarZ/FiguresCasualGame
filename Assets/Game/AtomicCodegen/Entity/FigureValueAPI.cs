@@ -28,6 +28,7 @@ namespace FiguresGame
         public const int EntityBar = 19; // List<IEntity>
         public const int OnEntityClick = 20; // Event<IEntity>
         public const int FigureCollider = 23; // Collider2D
+        public const int ID = 24; // ReactiveVariable<int>
 
 
         ///Extensions
@@ -246,5 +247,23 @@ namespace FiguresGame
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetFigureCollider(this IEntity obj, Collider2D value) => obj.SetValue(FigureCollider, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveVariable<int> GetID(this IEntity obj) => obj.GetValue<ReactiveVariable<int>>(ID);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetID(this IEntity obj, out ReactiveVariable<int> value) => obj.TryGetValue(ID, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddID(this IEntity obj, ReactiveVariable<int> value) => obj.AddValue(ID, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasID(this IEntity obj) => obj.HasValue(ID);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelID(this IEntity obj) => obj.DelValue(ID);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetID(this IEntity obj, ReactiveVariable<int> value) => obj.SetValue(ID, value);
     }
 }

@@ -20,17 +20,13 @@ namespace FiguresGame
         [SerializeField] private List<Transform> _spawnPoints;
         [SerializeField] private int _spawnCount;
         [SerializeField] private int _poolSize = 3;
-        [SerializeField] private Timer _timer;
         public void Install(IContext context)
         {
-            _timer.OnStopped += AllEntitysSpawned;
-            
             context.AddSystem(new SpawnerBehavior());
             context.AddSystem(new SetFiguresBehavior());
         }
         
         public List<Transform> SpawnPoints => _spawnPoints;
-        public Timer Timer => _timer;
         public int PoolSize => _poolSize;
         public int SpawnCount => _spawnCount;
         public List<SceneEntity> Prefabs => _prefabs;

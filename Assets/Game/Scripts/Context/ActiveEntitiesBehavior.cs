@@ -1,48 +1,61 @@
 using System.Collections.Generic;
 using Atomic.Contexts;
+using Atomic.Elements;
 using Atomic.Entities;
 using UnityEngine;
 
 namespace FiguresGame
 {
-    public class ActiveEntitiesBehavior: IContextInit, IContextEnable, IContextDispose, IEntityDispose
+    public class ActiveEntitiesBehavior: IContextInit, IContextEnable, IContextDispose, IEntityDispose, IContextUpdate
     {
+        public ReactiveVariable<int> ActiveEntitiesCount = new ();
+        
         private readonly List<IEntity> _hiddenFigures = new();
         private readonly List<IEntity> _activeEntities = new();
         private List<Transform> _positions;
-        private const int FIRST_SPAWN_POSITION = 0;
+        private Timer _timer;
+        private int _positionIndex;
+        
         void IContextInit.Init(IContext context)
         {
             _positions = context.GetSpawner().SpawnPoints;
+            _timer = context.GetTimer();
         }
 
         void IContextEnable.Enable(IContext context)
         {
             context.GetSpawner().OnEntitySpawned.Subscribe(AddEntity);
-            context.GetSpawner().OnAllEntitySpawned += ActivateEntities;
+            context.GetSpawner().OnAllEntitySpawned += StartTimer;
+            _timer.OnStarted += ActivateEntities;
+        }
+
+        private void StartTimer()
+        {
+            _timer.Start();
         }
 
         public void ActivateEntities()
         {
-            var positionIndex = FIRST_SPAWN_POSITION;
-            
-            while (_hiddenFigures.Count > 0)
+            if (_hiddenFigures.Count <= 0)
             {
-                var entity = GetRandomFigure(_hiddenFigures);
-                var entityTransform = entity.GetEntityTransform();
-                entityTransform.position = _positions[positionIndex].position;
-                _activeEntities.Add(entity);
-                _hiddenFigures.Remove(entity);
-                entityTransform.gameObject.SetActive(true);
-                positionIndex++;
-                
-                if (positionIndex == _positions.Count)
-                {   
-                    positionIndex = 0;
-                }
+                _timer.Stop();
+                _hiddenFigures.Clear();
+                return;
             }
             
-            _hiddenFigures.Clear();
+            var entity = GetRandomFigure(_hiddenFigures);
+            var entityTransform = entity.GetEntityTransform();
+            entityTransform.position = _positions[_positionIndex].position;
+            _activeEntities.Add(entity);
+            _hiddenFigures.Remove(entity);
+            entityTransform.gameObject.SetActive(true);
+            ActiveEntitiesCount.Value++;
+            _positionIndex++;
+            
+            if (_positionIndex == _positions.Count)
+            {   
+                _positionIndex = 0;
+            }
         }
         
         private IEntity GetRandomFigure(List<IEntity> entities)
@@ -55,27 +68,24 @@ namespace FiguresGame
         private void AddEntity(IEntity entity)
         {
             _hiddenFigures.Add(entity);
-            entity.GetOnEntityDestroy().Subscribe(DeleteEntity);
+            entity.GetOnBarPosition().Subscribe(DeleteEntity);
         }
 
         private void DeleteEntity(IEntity entity)
         {
-            var objectType = entity.GetObjectType().Value;
+            var id = entity.GetID().Value;
 
             for (var index = 0; index < _activeEntities.Count; index++)
             {
                 var activeEntity = _activeEntities[index];
-                var activeEntityType = activeEntity.GetObjectType().Value;
+                var activeEntityID = activeEntity.GetID().Value;
 
-                if (objectType == activeEntityType)
+                if (id == activeEntityID)
                 {
                     _activeEntities.Remove(activeEntity);
+                    ActiveEntitiesCount.Value--;
+                    return;
                 }
-            }
-
-            if (_activeEntities.Count == 0)
-            {
-                Debug.Log($"<color=red>GAMEOVER</color>");
             }
         }
 
@@ -90,15 +100,26 @@ namespace FiguresGame
             _activeEntities.Clear();
         }
 
+        public void TimerStart()
+        {
+            _timer.Start();
+        }
+
         void IContextDispose.Dispose(IContext context)
         {
             context.GetSpawner().OnEntitySpawned.Unsubscribe(AddEntity);
             context.GetSpawner().OnAllEntitySpawned -= ActivateEntities;
+            _timer.OnStarted -= ActivateEntities;
         }
 
         public void Dispose(IEntity entity)
         {
-            entity.GetOnEntityDestroy().Unsubscribe(DeleteEntity);
+            entity.GetOnBarPosition().Unsubscribe(DeleteEntity);
+        }
+
+        public void Update(IContext context, float deltaTime)
+        {
+            _timer.Tick(deltaTime);
         }
     }
 }
