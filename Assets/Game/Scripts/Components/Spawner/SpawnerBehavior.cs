@@ -14,7 +14,6 @@ namespace FiguresGame
         private Transform _figuresContainer;
         private Timer _timer;
         private int _count;
-        private const int FIRST_ENTITY_TYPE = 0;
         private const int FIRST_POOL_NUMBER = 0;
 
         void IContextInit.Init(IContext context)

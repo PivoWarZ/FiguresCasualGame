@@ -30,7 +30,6 @@ namespace FiguresGame
         private void EntityInBar(IEntity entity)
         {
             _entitiesBar.Add(entity);
-            Debug.Log($"Bar {_entitiesBar.Count}");
             
             var objectType = entity.GetObjectType().Value;
             
@@ -61,7 +60,6 @@ namespace FiguresGame
             }
             
             _entitiesBar.Clear(); 
-            Debug.Log($"Bar {_entitiesBar.Count}");
 
             foreach (var entity in buffer)
             {
@@ -69,8 +67,6 @@ namespace FiguresGame
             }
             
             buffer.Clear();
-
-            Debug.Log($"Bar {_entitiesBar.Count}");
         }
 
         private void ClearList(List<IEntity> entityList, int objectType, bool firstOnly = false)

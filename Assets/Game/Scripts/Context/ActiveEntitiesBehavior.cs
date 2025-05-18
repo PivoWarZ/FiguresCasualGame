@@ -7,7 +7,7 @@ namespace FiguresGame
 {
     public class ActiveEntitiesBehavior: IContextInit, IContextEnable, IContextDispose, IEntityDispose
     {
-        private readonly List<IEntity> _spawnedEntities = new();
+        private readonly List<IEntity> _hiddenFigures = new();
         private readonly List<IEntity> _activeEntities = new();
         private List<Transform> _positions;
         private const int FIRST_SPAWN_POSITION = 0;
@@ -22,19 +22,17 @@ namespace FiguresGame
             context.GetSpawner().OnAllEntitySpawned += ActivateEntities;
         }
 
-        private void ActivateEntities()
+        public void ActivateEntities()
         {
             var positionIndex = FIRST_SPAWN_POSITION;
             
-            while (_spawnedEntities.Count > 0)
+            while (_hiddenFigures.Count > 0)
             {
-                var index = Random.Range(0, _spawnedEntities.Count - 1);
-                IEntity entity = _spawnedEntities[index];
+                var entity = GetRandomFigure(_hiddenFigures);
                 var entityTransform = entity.GetEntityTransform();
                 entityTransform.position = _positions[positionIndex].position;
                 _activeEntities.Add(entity);
-                _spawnedEntities.Remove(entity);
-                entity.GetOnEntityDestroy();
+                _hiddenFigures.Remove(entity);
                 entityTransform.gameObject.SetActive(true);
                 positionIndex++;
                 
@@ -43,11 +41,20 @@ namespace FiguresGame
                     positionIndex = 0;
                 }
             }
+            
+            _hiddenFigures.Clear();
+        }
+        
+        private IEntity GetRandomFigure(List<IEntity> entities)
+        {
+            var index = Random.Range(0, entities.Count - 1);
+            IEntity entity = entities[index];
+            return entity;
         }
 
         private void AddEntity(IEntity entity)
         {
-            _spawnedEntities.Add(entity);
+            _hiddenFigures.Add(entity);
             entity.GetOnEntityDestroy().Subscribe(DeleteEntity);
         }
 
@@ -70,6 +77,17 @@ namespace FiguresGame
             {
                 Debug.Log($"<color=red>GAMEOVER</color>");
             }
+        }
+
+        public void HideFigures()
+        {
+            foreach (var activeEntity in _activeEntities)
+            {
+                activeEntity.GetEntityTransform().gameObject.SetActive(false);
+                _hiddenFigures.Add(activeEntity);
+            }
+            
+            _activeEntities.Clear();
         }
 
         void IContextDispose.Dispose(IContext context)
