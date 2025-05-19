@@ -78,6 +78,13 @@ namespace FiguresGame
             }
 
             _entitiesBar.Clear();
+            
+            foreach (var transitEntity in _transitEntities)
+            {
+                buffer.Add(transitEntity);
+            }
+            
+            _transitEntities.Clear();
 
             for (var index = 0; index < buffer.Count; index++)
             {
