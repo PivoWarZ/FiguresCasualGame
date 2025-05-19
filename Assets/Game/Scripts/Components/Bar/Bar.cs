@@ -53,8 +53,7 @@ namespace FiguresGame
             {
                 DeleteBarEntities(objectType);
             }
-
-            if (_entitiesBar.Count == _barPositions.Count)
+            else if (_entitiesBar.Count == _barPositions.Count)
             {
                 OnLoose?.Invoke();
             }
@@ -63,9 +62,11 @@ namespace FiguresGame
         private void DeleteBarEntities(int objectType)
         {
             List<IEntity> buffer = new List<IEntity>();
-            
-            foreach (var entity in _entitiesBar)
+
+            for (var index = 0; index < _entitiesBar.Count; index++)
             {
+                var entity = _entitiesBar[index];
+                
                 if (entity.GetObjectType().Value == objectType)
                 {
                     SceneEntity.Destroy(entity.GetEntityTransform().gameObject);
@@ -75,14 +76,15 @@ namespace FiguresGame
                     buffer.Add(entity);
                 }
             }
-            
-            _entitiesBar.Clear(); 
 
-            foreach (var entity in buffer)
+            _entitiesBar.Clear();
+
+            for (var index = 0; index < buffer.Count; index++)
             {
+                var entity = buffer[index];
                 GetMoveDirectionTransform(entity);
             }
-            
+
             buffer.Clear();
         }
 

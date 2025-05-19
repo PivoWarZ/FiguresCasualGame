@@ -3,17 +3,19 @@ using Atomic.Contexts;
 using Atomic.Elements;
 using Atomic.Entities;
 using UnityEngine;
+using Event = Atomic.Elements.Event;
 
 namespace FiguresGame
 {
     public sealed class ActiveEntitiesBehavior: IContextInit, IContextEnable, IContextDispose, IEntityDispose, IContextUpdate
     {
-        public ReactiveVariable<int> ActiveEntitiesCount = new ();
+        public Event OnWinCondition = new();
         
         private readonly List<IEntity> _hiddenFigures = new();
         private readonly List<IEntity> _activeEntities = new();
         private List<Transform> _positions;
         private Timer _timer;
+        private int _activeEntitiesCount;
         private int _positionIndex;
         
         void IContextInit.Init(IContext context)
@@ -49,7 +51,7 @@ namespace FiguresGame
             _activeEntities.Add(entity);
             _hiddenFigures.Remove(entity);
             entityTransform.gameObject.SetActive(true);
-            ActiveEntitiesCount.Value++;
+            _activeEntitiesCount++;
             _positionIndex++;
             
             if (_positionIndex == _positions.Count)
@@ -83,7 +85,13 @@ namespace FiguresGame
                 if (id == activeEntityID)
                 {
                     _activeEntities.Remove(activeEntity);
-                    ActiveEntitiesCount.Value--;
+                    _activeEntitiesCount--;
+                    
+                    if (_activeEntitiesCount == 0)
+                    {
+                        OnWinCondition?.Invoke();
+                    }
+
                     return;
                 }
             }

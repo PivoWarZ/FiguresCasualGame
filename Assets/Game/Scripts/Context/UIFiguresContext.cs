@@ -35,7 +35,7 @@ namespace Game.Scripts.Context
         {
             context.GetOnLoose().Subscribe(ShowLooseScreen);
 
-            _activeEntities.ActiveEntitiesCount.Subscribe(ShowWinScreen);
+            _activeEntities.OnWinCondition.Subscribe(ShowWinScreen);
             
             _refreshButton.onClick.AddListener(Refresh);
             _winscreen.onClick.AddListener(Reload);
@@ -64,12 +64,9 @@ namespace Game.Scripts.Context
             _refreshButton.gameObject.SetActive(false);
         }
 
-        private void ShowWinScreen(int count)
+        private void ShowWinScreen()
         {
-            if (count <= 0)
-            {
-                _winscreen.gameObject.SetActive(true);
-            }
+            _winscreen.gameObject.SetActive(true);
         }
 
         void IContextDispose.Dispose(IContext context)
@@ -80,7 +77,7 @@ namespace Game.Scripts.Context
             _loosescreen.onClick.RemoveListener(Reload);
             _winscreen.onClick.RemoveListener(Reload);
             _startButton.onClick.RemoveListener(StartGame);
-            _activeEntities.ActiveEntitiesCount.Unsubscribe(ShowWinScreen);
+            _activeEntities.OnWinCondition.Unsubscribe(ShowWinScreen);
         }
     }
 }
